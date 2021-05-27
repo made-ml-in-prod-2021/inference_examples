@@ -1,0 +1,16 @@
+# kubectl get pods -l purpose=demonstrate-envars
+# kubectl exec envar-demo -- printenv
+apiVersion: v1
+kind: Pod
+metadata:
+  name: envar-demo-1
+  labels:
+    purpose: demonstrate-envars
+spec:
+  containers:
+  - name: envar-demo-container
+    image: gcr.io/google-samples/node-hello:1.0
+    envFrom:
+    - prefix: CONFIG_
+      configMapRef:
+          name: special-config

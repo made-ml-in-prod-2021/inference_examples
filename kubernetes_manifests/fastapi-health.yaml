@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fastapi-ml-health
+  namespace: made
+  labels:
+    app: fastapi-ml
+spec:
+  containers:
+    - image: mikhailmar/online_inference:v2
+      name: fastapi-ml
+      ports:
+        - containerPort: 8000
+      readinessProbe:
+        httpGet:
+          path: /healthz
+          port: 8000
+        initialDelaySeconds: 15
+        periodSeconds: 3
